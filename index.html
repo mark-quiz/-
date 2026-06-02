@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اختبار تقييم العقلية التسويقية | Wasla Agency & Selza EG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #fafafa;
+    --bg: #f7f6f3;
+    --text-dark: #111111;
+    --text-mid: #333333;
+    --text-soft: #666666;
+    --grad-start: #7c3aed;
+    --grad-mid: #a855f7;
+    --grad-end: #f97316;
+    --grad: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #f97316 100%);
+    --grad-hover: linear-gradient(135deg, #6d28d9 0%, #9333ea 50%, #ea580c 100%);
+    --selected-bg: linear-gradient(135deg, #7c3aed15 0%, #f9731610 100%);
+    --selected-border: #a855f7;
+    --border: #e5e3de;
+    --shadow-sm: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 32px rgba(0,0,0,0.10);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.13);
+    --radius: 18px;
+    --radius-sm: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== NOISE TEXTURE OVERLAY ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ===== DECORATIVE BLOBS ===== */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob-1 { width: 500px; height: 500px; background: #7c3aed; top: -150px; right: -100px; }
+  .blob-2 { width: 400px; height: 400px; background: #f97316; bottom: -100px; left: -80px; }
+  .blob-3 { width: 300px; height: 300px; background: #a855f7; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+  /* ===== SCREENS ===== */
+  .screen {
+    position: relative;
+    z-index: 1;
+    display: none;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .screen.top-align { justify-content: flex-start; }
+
+  /* ===== CONTAINER ===== */
+  .container { width: 100%; max-width: 720px; }
+
+  /* ===== LOGO / BRAND HEADER ===== */
+  .brand-header {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeInDown 0.7s ease both;
+  }
+  .brand-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .brand-pill {
+    background: var(--grad);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 6px 18px;
+    border-radius: 100px;
+  }
+  .brand-sep { color: var(--text-soft); font-size: 18px; }
+  .brand-tagline {
+    font-size: 13px;
+    color: var(--text-soft);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== HERO TITLE ===== */
+  .hero-title {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 6vw, 48px);
+    line-height: 1.3;
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 14px;
+    animation: fadeInUp 0.7s 0.1s ease both;
+  }
+  .hero-title span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-soft);
+    font-weight: 400;
+    margin-bottom: 36px;
+    animation: fadeInUp 0.7s 0.2s ease both;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    animation: fadeInUp 0.6s ease both;
+  }
+  .card + .card { margin-top: 20px; }
+
+  /* ===== CREDITS CARD ===== */
+  .credits-card {
+    background: linear-gradient(135deg, #faf5ff 0%, #fff7ed 100%);
+    border: 1px solid #e9d5ff;
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-top: 24px;
+    animation: fadeInUp 0.6s 0.3s ease both;
+  }
+  .credits-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .credits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .credit-item {}
+  .credit-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-soft);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .credit-value {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+  .credits-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c084fc55, transparent);
+    margin: 16px 0;
+  }
+
+  /* ===== FORM ===== */
+  .form-group { margin-bottom: 22px; }
+  .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+  }
+  .form-input, .form-select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    background: var(--off-white);
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    direction: rtl;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color: var(--grad-start);
+    box-shadow: 0 0 0 4px #7c3aed15;
+  }
+  .form-input::placeholder { color: #bbb; }
+  .form-select { cursor: pointer; }
+  .form-error {
+    font-size: 12px;
+    color: #e53e3e;
+    margin-top: 5px;
+    display: none;
+  }
+  .form-error.show { display: block; }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 32px;
+    background: var(--grad);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 20px #7c3aed30;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px #7c3aed40;
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-wrap {
+    margin-bottom: 28px;
+    animation: fadeIn 0.4s ease both;
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-soft);
+  }
+  .progress-count {
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .progress-bar-bg {
+    height: 6px;
+    background: #ede9e0;
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--grad);
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ===== QUESTION CARD ===== */
+  .question-header {
+    margin-bottom: 22px;
+  }
+  .question-type-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: linear-gradient(135deg, #7c3aed18, #f9731615);
+    color: var(--grad-start);
+    margin-bottom: 10px;
+  }
+  .question-number {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+  }
+  .question-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  /* ===== ANSWER OPTIONS ===== */
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--off-white);
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-mid);
+    line-height: 1.5;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad);
+    opacity: 0;
+    transition: opacity 0.22s;
+  }
+  .option-btn:hover {
+    border-color: #c084fc;
+    transform: translateX(-4px);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-dark);
+  }
+  .option-btn:hover::before { opacity: 0.04; }
+  .option-btn.selected {
+    border-color: var(--selected-border);
+    background: linear-gradient(135deg, #f5f3ff 0%, #fff7ed 100%);
+    color: var(--text-dark);
+    font-weight: 600;
+    box-shadow: 0 4px 16px #a855f720;
+    transform: translateX(-2px);
+  }
+  .option-btn.selected::before { opacity: 0; }
+  .option-indicator {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.22s;
+    background: #fff;
+  }
+  .option-btn.selected .option-indicator {
+    background: var(--grad);
+    border-color: transparent;
+  }
+  .option-btn.selected .option-indicator::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    display: block;
+  }
+  .option-text { flex: 1; }
+
+  /* ===== ESSAY INPUT ===== */
+  .essay-textarea {
+    width: 100%;
+    padding: 16px 18px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    background: var(--off-white);
+    outline: none;
+    resize: vertical;
+    min-height: 120px;
+    direction: rtl;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    margin-top: 16px;
+  }
+  .essay-textarea:focus {
+    border-color: var(--grad-start);
+    box-shadow: 0 0 0 4px #7c3aed15;
+  }
+  .essay-textarea::placeholder { color: #bbb; }
+
+  /* ===== NAV BUTTONS ===== */
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-direction: row-reverse;
+  }
+  .btn-nav {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.22s;
+    border: 2px solid transparent;
+  }
+  .btn-next {
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 4px 16px #7c3aed30;
+  }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 24px #7c3aed40; }
+  .btn-back {
+    background: transparent;
+    color: var(--text-soft);
+    border-color: var(--border);
+  }
+  .btn-back:hover { border-color: #c084fc; color: var(--grad-start); }
+
+  /* ===== RESULTS ===== */
+  .result-screen { text-align: center; }
+  .result-icon-wrap {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 44px;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    box-shadow: 0 8px 40px #7c3aed40;
+  }
+  .result-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+    animation: fadeInUp 0.5s 0.2s ease both;
+  }
+  .result-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    animation: fadeInUp 0.5s 0.3s ease both;
+  }
+  .result-title span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .result-subtitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 16px;
+    animation: fadeInUp 0.5s 0.35s ease both;
+  }
+  .result-desc {
+    font-size: 16px;
+    color: var(--text-soft);
+    line-height: 1.8;
+    animation: fadeInUp 0.5s 0.4s ease both;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .result-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--grad);
+    border-radius: 100px;
+    margin: 20px auto;
+    animation: fadeIn 0.5s 0.5s ease both;
+  }
+  .result-badge {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 8px 24px;
+    background: var(--grad);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 100px;
+    animation: fadeInUp 0.5s 0.55s ease both;
+    letter-spacing: 0.5px;
+  }
+  .result-footer {
+    margin-top: 28px;
+    font-size: 13px;
+    color: #bbb;
+    animation: fadeIn 0.5s 0.7s ease both;
+  }
+  .result-footer strong { color: var(--text-soft); }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #111;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 999;
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideInCard {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card-enter { animation: slideInCard 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+
+  /* ===== SECTION TRANSITION CARD ===== */
+  .section-divider-card {
+    text-align: center;
+    padding: 40px 32px;
+  }
+  .section-divider-icon { font-size: 48px; margin-bottom: 12px; }
+  .section-divider-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+  .section-divider-sub { font-size: 15px; color: var(--text-soft); }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .card { padding: 22px 18px; }
+    .credits-grid { grid-template-columns: 1fr; }
+    .question-text { font-size: 16px; }
+    .option-btn { font-size: 14px; padding: 13px 14px; }
+    .nav-buttons { flex-direction: column; }
+    .btn-nav { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- ===== SCREEN 1: LANDING ===== -->
+<div class="screen active" id="screen-landing">
+  <div class="container">
+    <div class="brand-header">
+      <div class="brand-logos">
+        <span class="brand-pill">Wasla Agency</span>
+        <span class="brand-sep">&</span>
+        <span class="brand-pill">Selza EG</span>
+      </div>
+      <div class="brand-tagline">يقدمان</div>
+    </div>
+
+    <h1 class="hero-title">اختبار تقييم<br><span>العقلية التسويقية</span></h1>
+    <p class="hero-sub">اكتشف عقليتك التسويقية الحقيقية — هل أنت استراتيجي، محلل، أم مبدع؟</p>
+
+    <div class="card" style="animation-delay:0.25s">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#fafafa;border-radius:10px;border:1px solid #eee;">
+          <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#7c3aed20,#f9731620);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📋</div>
+          <div><div style="font-size:13px;color:#888;font-weight:600;">عدد الأسئلة</div><div style="font-size:15px;font-weight:700;color:#111;">23 سؤال</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#fafafa;border-radius:10px;border:1px solid #eee;">
+          <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#7c3aed20,#f9731620);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">⏱️</div>
+          <div><div style="font-size:13px;color:#888;font-weight:600;">المدة التقريبية</div><div style="font-size:15px;font-weight:700;color:#111;">30 – 40 دقيقة</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#fafafa;border-radius:10px;border:1px solid #eee;">
+          <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#7c3aed20,#f9731620);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🧠</div>
+          <div><div style="font-size:13px;color:#888;font-weight:600;">النتيجة</div><div style="font-size:15px;font-weight:700;color:#111;">تحديد عقليتك التسويقية</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="credits-card">
+      <div class="credits-card-title">✦ بطاقة الإعداد والتطوير</div>
+      <div class="credits-grid">
+        <div class="credit-item">
+          <div class="credit-label">إعداد الأسئلة</div>
+          <div class="credit-value">م. مؤمن نصار<br>د. منه محمد<br>م. أحمد سيف</div>
+        </div>
+        <div class="credit-item">
+          <div class="credit-label">تطوير وتنفيذ</div>
+          <div class="credit-value">م. علاء ياسر<br>م. مؤمن نصار</div>
+        </div>
+      </div>
+      <div class="credits-divider"></div>
+      <div class="credits-grid">
+        <div class="credit-item">
+          <div class="credit-label">تاريخ الإصدار</div>
+          <div class="credit-value">يونيو ٢٠٢٦</div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div style="margin-top:28px;animation:fadeInUp 0.6s 0.5s ease both;">
+      <button class="btn-primary" onclick="goToForm()">
+        ابدأ الاختبار الآن
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 2: FORM ===== -->
+<div class="screen" id="screen-form">
+  <div class="container">
+    <div class="brand-header">
+      <div class="brand-logos">
+        <span class="brand-pill">Wasla Agency</span>
+        <span class="brand-sep">&</span>
+        <span class="brand-pill">Selza EG</span>
+      </div>
+    </div>
+    <h2 class="hero-title" style="font-size:clamp(22px,5vw,34px);">قبل ما نبدأ...</h2>
+    <p class="hero-sub">تعبئة هذه البيانات مطلوبة للمتابعة</p>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">الاسم بالكامل *</label>
+        <input type="text" class="form-input" id="input-name" placeholder="اكتب اسمك هنا">
+        <div class="form-error" id="err-name">الرجاء إدخال اسمك بالكامل</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">رقم الهاتف *</label>
+        <input type="tel" class="form-input" id="input-phone" placeholder="01XXXXXXXXX" maxlength="11">
+        <div class="form-error" id="err-phone">الرجاء إدخال رقم هاتف صحيح (11 رقم يبدأ بـ 0)</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">لماذا ترغب في تعلم التسويق؟ *</label>
+        <select class="form-select" id="input-reason">
+          <option value="">— اختر سبباً —</option>
+          <option value=" أشتغل  ">عشان أشتغل في المجال</option>
+          <option value=" براند  ">عندي براند وحابب أسوقله</option>
+          <option value="  دراستي">ده مجال دراستي</option>
+          <option value="اخر ">سبب تاني</option>
+        </select>
+        <div class="form-error" id="err-reason">الرجاء اختيار سبب</div>
+      </div>
+      <button class="btn-primary" onclick="startAssessment()">
+        ابدأ الاختبار
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 3: QUESTIONS ===== -->
+<div class="screen top-align" id="screen-quiz" style="padding-top:32px;">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-label">التقدم في الاختبار</span>
+        <span class="progress-count" id="progress-text">1 / 23</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width:4%"></div>
+      </div>
+    </div>
+    <div id="question-container"></div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 4: RESULTS ===== -->
+<div class="screen" id="screen-results">
+  <div class="container">
+    <div class="card result-screen" id="result-card">
+      <div class="result-icon-wrap" id="result-icon"></div>
+      <div class="result-name" id="result-name-display"></div>
+      <div class="result-title" id="result-title-el"></div>
+      <div class="result-subtitle" id="result-subtitle-el"></div>
+      <div class="result-divider"></div>
+      <div class="result-desc" id="result-desc-el"></div>
+      <div id="result-badge-el" class="result-badge"></div>
+      <div class="result-footer">
+        <strong>Wasla Agency & Selza EG</strong><br>
+        شكراً لإكمالك الاختبار 🎉
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===================================================
+//  CONFIGURATION
+// ===================================================
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymgWYrCjaOLrtKuDBmD49Y8YF4Cec5ClXmWIwC4oZoFz0-kRmu1M7u5HmGtzFXNLxu/exec";
+
+// ===================================================
+//  QUESTION BANK
+// ===================================================
+const questions = [
+  // MCQ Section
+  {
+    id: 1, type: "mcq", section: "strategist",
+    text: "تدير فريق كرة قدم بإمكانيات بدنية ضعيفة جداً وتواجه بطل الدوري. ما هو تكتيكك؟",
+    options: [
+      { text: "الهجوم المباغت لربك الخصم.", correct: false },
+      { text: "التراجع وإغلاق المساحات واللعب على المرتدات.", correct: true },
+      { text: "دراسة نقاط ضعف الخصم واستغلالها لامتصاص حماسهم.", correct: true },
+      { text: "الاستعراض الفردي حتى لو خسرنا.", correct: false },
+    ]
+  },
+  {
+    id: 2, type: "mcq", section: "analyst",
+    text: "مكتبة يزداد عدد زوارها يومياً ولكن المبيعات تنخفض بشدة. ما التفسير المنطقي؟",
+    options: [
+      { text: "ديكور عرض الكتب غير جذاب.", correct: false },
+      { text: "الزوار يدخلون لتصفح الكتب مجاناً ثم ينصرفون.", correct: true },
+      { text: "أسعار الكتب مرتفعة جداً مقارنة بالمكتبات المجاورة.", correct: true },
+      { text: "الناس توقفت عن القراءة.", correct: false },
+    ]
+  },
+  {
+    id: 3, type: "mcq", section: "strategist",
+    text: "مصمم جرافيك في فريقك موهوب جداً لكنه يتأخر دائماً في التسليم. ماذا تفعل؟",
+    options: [
+      { text: "أواجهه بوضوح، وأدير توقعات العميل بإضافة وقت احتياطي لتسليمه.", correct: true },
+      { text: "أفرض نظام خصومات بناءً على التأخير.", correct: true },
+      { text: "أطرده فوراً وأعين شخصاً أقل موهبة ولكنه ملتزم.", correct: false },
+      { text: "أصمم العمل بنفسي لإنقاذ الموقف.", correct: false },
+    ]
+  },
+  {
+    id: 4, type: "mcq", section: "analyst",
+    text: "مطعمان للبيتزا، الأول طعمه رائع وفارغ، والثاني طعمه عادي ومزدحم. ما السبب؟",
+    options: [
+      { text: "المطعم الثاني يمتلك إضاءة وديكوراً وموسيقى تخطف الأنظار.", correct: true },
+      { text: "المطعم الثاني يبني مجتمعاً ويجعل الزبائن يشعرون بالانتماء كعائلة.", correct: true },
+      { text: "الناس لا تفهم طعم البيتزا الحقيقي.", correct: false },
+      { text: "المطعم الأول يرفض استقبال الزبائن.", correct: false },
+    ]
+  },
+  {
+    id: 5, type: "mcq", section: "strategist",
+    text: "ميزانيتك محدودة جداً للإعلان عن شركة شحن B2B. أين تنفقها؟",
+    options: [
+      { text: "إنتاج فيديو كوميدي ونشره للجميع.", correct: false },
+      { text: "إعلانات ممولة مستهدفة بدقة لمديري الشركات والمصانع فقط.", correct: true },
+      { text: "أستخدم الميزانية لبناء علاقات مباشرة وعمل زيارات لأكبر 5 مصانع.", correct: true },
+      { text: "أطبع لافتة في شارع عام.", correct: false },
+    ]
+  },
+  {
+    id: 6, type: "mcq", section: "strategist",
+    text: "قبل موعد تسليم مشروع بساعات، أخبرك المونتير أنه مريض ولن يكمل العمل. ماذا تفعل؟",
+    options: [
+      { text: "أحاول إنجاز نسخة سريعة بنفسي.", correct: false },
+      { text: "أصارح العميل فوراً بالظرف الطارئ وأفاوضه على مهلة جديدة بشفافية.", correct: true },
+      { text: "أبحث عن مونتير مستقل (Freelancer) لإنجاز العمل فوراً كخطة بديلة.", correct: true },
+      { text: "أغلق هاتفي حتى الصباح.", correct: false },
+    ]
+  },
+  {
+    id: 7, type: "mcq", section: "strategist",
+    text: "عميل غاضب لأن حملته الإعلانية التي بدأت «بالأمس» لم تحقق مبيعات. رد فعلك؟",
+    options: [
+      { text: "أصمم له إعلاناً جديداً بألوان مختلفة.", correct: false },
+      { text: "أمتص غضبه وأشرح له قمع المبيعات (Funnel) وأننا في مرحلة الوعي والاختبار.", correct: true },
+      { text: "أعرض له أرقام الوصول والنقرات لأثبت أن الحملة تعمل وفي مسارها الصحيح.", correct: true },
+      { text: "أوقف الحملة وأعيد له نقوده.", correct: false },
+    ]
+  },
+  {
+    id: 8, type: "mcq", section: "creative",
+    text: "لماذا تصرف شركة «كوكاكولا» الملايين على إعلانات رمضانية عن العائلة دون ذكر جودة المنتج؟",
+    options: [
+      { text: "لربط المنتج بمشاعر الدفء والانتماء وبناء ولاء مجتمعي طويل الأمد.", correct: true },
+      { text: "لصناعة قصة (Storytelling) تجعل البراند جزءاً من ثقافة المجتمع.", correct: true },
+      { text: "لأن تصوير العائلات أرخص.", correct: false },
+      { text: "لأنهم لم يجدوا ميزة في طعم المنتج.", correct: false },
+    ]
+  },
+  {
+    id: 9, type: "mcq", section: "creative",
+    text: "إعلان عن منتج «مشروب منعش». ما هي أفضل طريقة بصرية لعرضه؟",
+    options: [
+      { text: "ألوان مبهجة وشباب يلعبون على الشاطئ في شمس حارقة ويشربونه.", correct: true },
+      { text: "التركيز على قطرات الماء المتكاثفة على الزجاجة الباردة مع صوت فتح الغطاء.", correct: true },
+      { text: "تصوير شخص نائم في الشتاء.", correct: false },
+      { text: "كتابة المكونات على شاشة سوداء.", correct: false },
+    ]
+  },
+  {
+    id: 10, type: "mcq", section: "creative",
+    text: "لماذا تستخدم ماكدونالدز اللونين الأحمر والأصفر بكثرة؟",
+    options: [
+      { text: "لأن سيكولوجية هذه الألوان تحفز الجوع وتلفت الانتباه بقوة.", correct: true },
+      { text: "لأنها ألوان مرتبطة بالطاقة والسرعة (وجبات سريعة).", correct: true },
+      { text: "لأنها الألوان الوحيدة المتاحة للطباعة.", correct: false },
+      { text: "مجرد صدفة تاريخية.", correct: false },
+    ]
+  },
+  {
+    id: 11, type: "mcq", section: "analyst",
+    text: "إعلان لكورس «حساب ذهني للأطفال»، لمن يجب أن نوجه الرسالة في الاستهداف؟",
+    options: [
+      { text: "للأب بلغة الأرقام والتوفير المادي ونتائج دراسية أفضل.", correct: true },
+      { text: "للأم بلغة البرستيج وحماية طفلها من تشتت التكنولوجيا.", correct: true },
+      { text: "للطفل نفسه بأسلوب كرتوني.", correct: false },
+      { text: "لكل الناس بدون استهداف.", correct: false },
+    ]
+  },
+  {
+    id: 12, type: "mcq", section: "analyst",
+    text: "لماذا تتركز إعلانات العقارات الضخمة في التلفزيون خلال شهر رمضان؟",
+    options: [
+      { text: "لأن العائلة (صناع القرار) تجتمع معاً في نفس الوقت لمناقشة المستقبل.", correct: true },
+      { text: "لأن الترافيك ونسب المشاهدة الجماعية تكون في أعلى معدلاتها في العام.", correct: true },
+      { text: "لأن أسعار الإعلانات تكون أرخص في رمضان.", correct: false },
+      { text: "لأن الناس تشتري منازل أكثر في رمضان.", correct: false },
+    ]
+  },
+  {
+    id: 13, type: "mcq", section: "creative",
+    text: "لماذا يصطف الناس في طوابير لساعات لشراء آيفون جديد؟",
+    options: [
+      { text: "للشعور بالانتماء لقبيلة مميزة (Status Symbol) والبرستيج الاجتماعي.", correct: true },
+      { text: "لأن آبل تبيع «تجربة» وشعوراً بالتميز وليس مجرد هاتف.", correct: true },
+      { text: "لأن الهواتف الأخرى لا تعمل جيداً.", correct: false },
+      { text: "لأنهم لا يملكون هواتف قديمة.", correct: false },
+    ]
+  },
+  {
+    id: 14, type: "mcq", section: "creative",
+    text: "عميل يطلب منك أن تصنع له فيديو «فايرال» غداً بأي ثمن.",
+    options: [
+      { text: "أفكر في توظيف «تريند» حالي بطريقة ذكية تناسب منتجه.", correct: true },
+      { text: "أحلل الفيديوهات التي انتشرت مؤخراً لاستنساخ الخوارزمية وتقديم زاوية مشابهة.", correct: true },
+      { text: "أرفض وعده بالانتشار وأشرح له أن التسويق بناء تراكمي وليس ضربة حظ.", correct: true },
+      { text: "أقوم بعمل محتوى مسيء للفت الانتباه.", correct: false },
+    ]
+  },
+  {
+    id: 15, type: "mcq", section: "strategist",
+    text: "منافسك المباشر خفض أسعاره بنسبة 50٪ فجأة. ماذا تفعل؟",
+    options: [
+      { text: "أراجع هوامش الربح الخاصة بي فوراً لأرى إن كنت أستطيع عمل عروض مجمعة (Bundles).", correct: true },
+      { text: "أتجاهل سعره، وأركز إعلاناتي على إبراز القيمة المضافة والجودة الفائقة لمنتجي.", correct: true },
+      { text: "أطلق حملة تهاجمه بشكل مباشر.", correct: false },
+      { text: "أغلق شركتي.", correct: false },
+    ]
+  },
+  {
+    id: 16, type: "mcq", section: "analyst",
+    text: "لديك ساعة واحدة يومياً لتعلم مهارة جديدة كمسوق، ماذا تختار لتحسين نتائج حملاتك؟",
+    options: [
+      { text: "كورس في تحليل البيانات وفهم سلوك المستهلك من الأرقام.", correct: true },
+      { text: "كورس في قراءة شاشات المنصات الإعلانية واستخراج التقارير.", correct: true },
+      { text: "كورس في تعديل الصور والفيديوهات.", correct: false },
+      { text: "كورس في برمجة المواقع.", correct: false },
+    ]
+  },
+  {
+    id: 17, type: "mcq", section: "creative",
+    text: "إذا طُلب منك تسويق «قلم رصاص» عادي جداً، كيف ستبيعه؟",
+    options: [
+      { text: "سأكتب قصة قصيرة عن الفكرة العظيمة التي يمكن أن يكتبها هذا القلم.", correct: true },
+      { text: "سأقنع المشتري أنه الأداة الوحيدة التي يمكنها تحويل أفكاره المجردة لواقع ملموس.", correct: true },
+      { text: "سأقول أنه أرخص قلم في السوق.", correct: false },
+      { text: "سأعرض صورته فقط بدون كلام.", correct: false },
+    ]
+  },
+  // ESSAY Section
+  {
+    id: 18, type: "essay", essayIndex: 1,
+    badge: "سؤال العصف الذهني",
+    text: "معانا عميل عنده مصنع شرابات قطن وعايز فكرة إعلان مبتكرة وتضحك الناس عشان ينشرها على تيك توك وفيسبوك.. فكر في فكرة مجنونة أو موقف كوميدي صغير من سطرين يوضح إن الشراب بتاعه مريح جداً ومش بيتقطع بسهولة.",
+    placeholder: "فكرتك من سطرين..."
+  },
+  {
+    id: 19, type: "essay", essayIndex: 2,
+    badge: "سؤال العصف الذهني",
+    text: "لو بتشوف إعلانات دكاترة الأسنان أو مراكز التجميل الكبيرة، تفتكر ليه دايماً بيركزوا في الفيديوهات على تصوير شكل العميل وهو بيضحك وفرحان ومبسوط (Before & After) أكتر ما بيركزوا على تصوير الأجهزة الطبية والمشرط والأدوات؟",
+    placeholder: "تفسيرك التسويقي..."
+  },
+  {
+    id: 20, type: "essay", essayIndex: 3,
+    badge: "دراسة حالة متكاملة",
+    text: "تم التعاقد معك كمسؤول تسويق لإطلاق براند مشروبات غازية جديد في السوق المصري، والهدف الرئيسي للبراند هو استهداف جيل Gen Z.<br><br>المطلوب:<br>1. حدد شخصية البراند (Brand Personality) المناسبة لهذه الفئة.<br>2. اقترح فكرة إبداعية لحملة الإطلاق.<br>3. حدد المنصات التسويقية التي ستعتمد عليها ولماذا.<br>4. اقترح أفكار محتوى تناسب Gen Z.<br>5. اكتب مثالًا لكابشن أو إعلان قصير للمنتج.<br>6. وضّح كيف ستجعل البراند مختلفًا عن المنافسين الموجودين في السوق.<br>7. حدد مؤشرات الأداء (KPIs) التي ستقيس بها نجاح الحملة خلال أول 3 أشهر.",
+    placeholder: "اكتب خطتك المتكاملة هنا بالتفصيل (يمكنك ترقيم الإجابات)..."
+  },
+
+  {
+    id: 21, type: "essay", essayIndex: 4,
+    badge: "سؤال العصف الذهني",
+    text: "إزاي تعمل فكرة إعلان لشركة شحن دولي، بشرط إنك (ممنوع تظهر أي كراتين، أو مناديب، أو سيارات/طائرات شحن)؟ أوصف فكرة بتوصل المعنى بدون استخدام العناصر التقليدية المباشرة.",
+    placeholder: "فكرتك الإعلانية المبتكرة..."
+  },
+  {
+    id: 22, type: "essay", essayIndex: 5,
+    badge: "سؤال العصف الذهني",
+    text: "كل إعلانات المياه المعدنية بقت شبه بعض (جبال وطبيعة ونقاء). لو طلبنا منك فكرة إعلان لبراند مياه جديد تكسر بيها الملل ده وتكون مختلفة تماماً وتلفت الانتباه.. إيه هي فكرتك؟",
+    placeholder: "فكرتك المختلفة..."
+  },
+  {
+    id: 23, type: "essay", essayIndex: 6,
+    badge: "سؤال العصف الذهني",
+    text: "تخيل إنك بتسوق لـ (منبه ذكي) مش بيبطل رن غير لما تقوم من السرير وتصوره صورة. اكتب سكريبت صغير من سطرين لإعلان تيك توك بيستهدف الشباب اللي نومهم تقيل بطريقة ساخرة ومضحكة.",
+    placeholder: "سكريبت من سطرين..."
+  },
+];
+
+// ===================================================
+//  STATE
+// ===================================================
+const state = {
+  userName: "",
+  userPhone: "",
+  userReason: "",
+  currentQ: 0,
+  answers: {}, // qId -> selected option index
+  essays: {},  // essayIndex -> text
+  scores: { strategist: 0, analyst: 0, creative: 0 },
+  maxScores: { strategist: 6, analyst: 5, creative: 6 },
+};
+
+// ===================================================
+//  NAVIGATION HELPERS
+// ===================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToForm() { showScreen('screen-form'); }
+
+// ===================================================
+//  FORM VALIDATION
+// ===================================================
+function startAssessment() {
+  const name = document.getElementById('input-name').value.trim();
+  const phone = document.getElementById('input-phone').value.trim();
+  const reason = document.getElementById('input-reason').value;
+  let valid = true;
+
+  document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
+
+  if (!name) { document.getElementById('err-name').classList.add('show'); valid = false; }
+  if (!/^0\d{10}$/.test(phone)) { document.getElementById('err-phone').classList.add('show'); valid = false; }
+  if (!reason) { document.getElementById('err-reason').classList.add('show'); valid = false; }
+
+  if (!valid) return;
+
+  state.userName = name;
+  state.userPhone = phone;
+  state.userReason = reason;
+  state.currentQ = 0;
+
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+// ===================================================
+//  QUESTION RENDERING
+// ===================================================
+function renderQuestion() {
+  const q = questions[state.currentQ];
+  const total = questions.length;
+  const container = document.getElementById('question-container');
+
+  // Update progress
+  document.getElementById('progress-text').textContent = `${state.currentQ + 1} / ${total}`;
+  const pct = ((state.currentQ + 1) / total) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  // Build HTML
+  let html = `<div class="card card-enter">`;
+
+  if (q.type === 'mcq') {
+    html += `
+      <div class="question-header">
+        <div class="question-type-badge">اختيار من متعدد</div>
+        <div class="question-number">السؤال ${q.id} من 17</div>
+        <div class="question-text">${q.text}</div>
+      </div>
+      <div class="options-grid">
+    `;
+    q.options.forEach((opt, i) => {
+      const isSelected = state.answers[q.id] === i;
+      html += `
+        <button class="option-btn${isSelected ? ' selected' : ''}" onclick="selectOption(${q.id}, ${i})">
+          <div class="option-indicator"></div>
+          <div class="option-text">${opt.text}</div>
+        </button>
+      `;
+    });
+    html += `</div>`;
+  } else {
+    const essayVal = state.essays[q.essayIndex] || '';
+    html += `
+      <div class="question-header">
+        <div class="question-type-badge">${q.badge}</div>
+        <div class="question-number">السؤال ${q.id} من ${total}</div>
+        <div class="question-text">${q.text}</div>
+      </div>
+      <textarea class="essay-textarea" id="essay-input-${q.essayIndex}"
+        placeholder="${q.placeholder}"
+        oninput="saveEssay(${q.essayIndex})"
+      >${essayVal}</textarea>
+    `;
+  }
+
+  // Nav buttons
+  const isFirst = state.currentQ === 0;
+  const isLast = state.currentQ === total - 1;
+  html += `
+    <div class="nav-buttons">
+      <button class="btn-nav btn-next" onclick="nextQuestion()">
+        ${isLast ? 'إنهاء الاختبار ✓' : 'التالي ←'}
+      </button>
+      ${!isFirst ? `<button class="btn-nav btn-back" onclick="prevQuestion()">→ السابق</button>` : ''}
+    </div>
+  `;
+
+  html += `</div>`;
+  container.innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectOption(qId, optIndex) {
+  state.answers[qId] = optIndex;
+  renderQuestion();
+}
+
+function saveEssay(idx) {
+  const el = document.getElementById(`essay-input-${idx}`);
+  if (el) state.essays[idx] = el.value;
+}
+
+function nextQuestion() {
+  const q = questions[state.currentQ];
+
+  // Save essay before moving
+  if (q.type === 'essay') {
+    const el = document.getElementById(`essay-input-${q.essayIndex}`);
+    if (el) state.essays[q.essayIndex] = el.value;
+  }
+
+  // Validate MCQ
+  if (q.type === 'mcq' && state.answers[q.id] === undefined) {
+    showToast('الرجاء اختيار إجابة أولاً');
+    return;
+  }
+
+  // Validate essay
+  if (q.type === 'essay') {
+    const val = (state.essays[q.essayIndex] || '').trim();
+    if (!val) {
+      showToast('الرجاء كتابة إجابتك أولاً');
+      return;
+    }
+  }
+
+  if (state.currentQ < questions.length - 1) {
+    state.currentQ++;
+    renderQuestion();
+  } else {
+    finishAssessment();
+  }
+}
+
+function prevQuestion() {
+  if (state.currentQ > 0) {
+    // Save essay
+    const q = questions[state.currentQ];
+    if (q.type === 'essay') {
+      const el = document.getElementById(`essay-input-${q.essayIndex}`);
+      if (el) state.essays[q.essayIndex] = el.value;
+    }
+    state.currentQ--;
+    renderQuestion();
+  }
+}
+
+// ===================================================
+//  SCORING & RESULTS
+// ===================================================
+function finishAssessment() {
+  // Calculate scores
+  state.scores = { strategist: 0, analyst: 0, creative: 0 };
+
+  questions.filter(q => q.type === 'mcq').forEach(q => {
+    const chosen = state.answers[q.id];
+    if (chosen !== undefined && q.options[chosen].correct) {
+      state.scores[q.section]++;
+    }
+  });
+
+  // Find winner
+  const s = state.scores;
+  const m = state.maxScores;
+  const pctS = s.strategist / m.strategist;
+  const pctA = s.analyst / m.analyst;
+  const pctC = s.creative / m.creative;
+
+  let winner;
+  if (pctS >= pctA && pctS >= pctC) winner = 'strategist';
+  else if (pctC >= pctA) winner = 'creative';
+  else winner = 'analyst';
+
+  showResults(winner);
+  sendToSheets(winner);
+}
+
+const resultData = {
+  strategist: {
+    icon: '👔',
+    title: '',
+    titleEn: 'The Strategist',
+    subtitle: 'قائد بالفطرة',
+    desc: 'أنت قائد بالفطرة، تعرف كيف تدير الموارد وتتعامل مع العملاء بذكاء. مكانك الطبيعي هو إدارة الحسابات (Account Management) أو التخطيط الاستراتيجي.',
+    badge: '👔 Account Management · Strategic Planning'
+  },
+  analyst: {
+    icon: '📊',
+    title: '',
+    titleEn: 'The Analyst',
+    subtitle: 'عقل يقرأ ما وراء الأرقام',
+    desc: 'عقلك يقرأ ما وراء الأرقام ولا ينخدع بالظواهر. أنت مشروع (Media Buyer) ممتاز أو متخصص في تحليل الأداء التسويقي (Performance Marketing).',
+    badge: '📊 Media Buying · Performance Marketing'
+  },
+  creative: {
+    icon: '🎨',
+    title: ' ',
+    titleEn: 'The Creative',
+    subtitle: 'خيال يصنع القصص',
+    desc: 'أنت تمتلك عيناً تلتقط التفاصيل وخيالاً يصنع القصص. مكانك المثالي هو صناعة المحتوى، كتابة الإعلانات (Copywriting)، أو الإدارة الفنية المبتكرة!',
+    badge: '🎨 Content Creation · Copywriting · Creative Direction'
+  }
+};
+
+function showResults(winner) {
+  const r = resultData[winner];
+  document.getElementById('result-icon').textContent = r.icon;
+  document.getElementById('result-name-display').textContent = `مرحباً، ${state.userName} 👋`;
+  document.getElementById('result-title-el').innerHTML = `<span>${r.title}</span>`;
+  document.getElementById('result-subtitle-el').textContent = r.titleEn + ' — ' + r.subtitle;
+  document.getElementById('result-desc-el').textContent = r.desc;
+  document.getElementById('result-badge-el').textContent = r.badge;
+
+  showScreen('screen-results');
+}
+
+// ===================================================
+//  GOOGLE SHEETS INTEGRATION
+// ===================================================
+function sendToSheets(winner) {
+  const payload = {
+    name: state.userName,
+    phone: state.userPhone,
+    reason: state.userReason,
+    mindset: resultData[winner].title + ' (' + resultData[winner].titleEn + ')',
+    // سطرين جداد عشان يبعتوا الدرجات التفصيلية:
+    scoreS: `${state.scores.strategist} / ${state.maxScores.strategist}`,
+    scoreA: `${state.scores.analyst} / ${state.maxScores.analyst}`,
+    scoreC: `${state.scores.creative} / ${state.maxScores.creative}`,
+    essay1: state.essays[1] || '',
+    essay2: state.essays[2] || '',
+    essay3: state.essays[3] || '',
+    essay4: state.essays[4] || '',
+    essay5: state.essays[5] || '',
+    essay6: state.essays[6] || '',
+  };
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(() => {}); // silent fail
+}
+
+// ===================================================
+//  TOAST
+// ===================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+
+<!--
+=======================================================
+  GOOGLE APPS SCRIPT — انسخ الكود ده في Apps Script
+=======================================================
+
+function doPost(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getActiveSheet();
+
+    // إنشاء العناوين في أول مرة
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'الاسم',
+        'رقم الهاتف',
+        'سبب تعلم التسويق',
+        'العقلية الغالبة',
+        'س18 – فكرة إعلان الشرابات (كوميدي)',
+        'س19 – سر إعلانات Before & After',
+        'س20 – Hook المحل البيتي المصري',
+        'س21 – إعلان شحن بدون عناصر تقليدية',
+        'س22 – فكرة إعلان مياه مختلفة',
+        'س23 – سكريبت تيك توك المنبه الذكي',
+        'التاريخ'
+      ]);
+    }
+
+    var data = JSON.parse(e.postData.contents);
+
+    sheet.appendRow([
+      data.name || '',
+      data.phone || '',
+      data.reason || '',
+      data.mindset || '',
+      data.essay1 || '',
+      data.essay2 || '',
+      data.essay3 || '',
+      data.essay4 || '',
+      data.essay5 || '',
+      data.essay6 || '',
+      new Date().toLocaleString('ar-EG')
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// خطوات النشر:
+// 1. افتح Google Sheets → Extensions → Apps Script
+// 2. انسخ الكود ده في المحرر
+// 3. Deploy → New Deployment → Web app
+// 4. Execute as: Me | Who has access: Anyone
+// 5. انسخ الـ URL وضعه في متغير APPS_SCRIPT_URL في الكود
+
+=======================================================
+-->
+</body>
+</html>
